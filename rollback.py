@@ -1,9 +1,9 @@
 import shutil
-import logging
-
-logging.basicConfig(filename='rollback.log', level=logging.INFO)
+import logger
 
 def rollback():
     shutil.copy("versions/v1/app.py", "app/app.py")
-    logging.info("Rollback to v1 successful!")
-    print("Rolled back to stable version!")
+    logger.write("rollback", "Rollback to v1 done")
+
+if __name__ == "__main__":
+    rollback()
