@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DevOps Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>DevOps Auto Rollback Dashboard</h1>
+
+    <form method="POST" action="/deploy">
+        <select name="version">
+            <option value="v1">Deploy v1 (Stable)</option>
+            <option value="v2">Deploy v2 (Buggy)</option>
+        </select>
+        <button type="submit">Deploy</button>
+    </form>
+
+    <br>
+
+    <a href="/start_monitor"><button>Start Monitor</button></a>
+    <a href="/rollback"><button>Manual Rollback</button></a>
+
+    <br><br>
+
+    <form method="POST" action="/logs">
+        <button name="log" value="deploy">View Deploy Log</button>
+        <button name="log" value="monitor">View Monitor Log</button>
+        <button name="log" value="rollback">View Rollback Log</button>
+    </form>
+</body>
+</html>
