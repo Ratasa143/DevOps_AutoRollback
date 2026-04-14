@@ -1,14 +1,17 @@
 from flask import Flask
-import random
 
 app = Flask(__name__)
 
 @app.route("/")
-def home():
-    # Simulate random failure
-    if random.randint(1, 5) == 3:
-        return "App Crashed!", 500
-    return "App is Running Successfully!"
+def menu():
+    return """
+    <h1>College Canteen Menu</h1>
+    <ul>
+        <li>Samosa - ₹15</li>
+        <li>Sandwich - ₹25</li>
+        <li>Tea - ₹10</li>
+    </ul>
+    """
 
 if __name__ == "__main__":
     app.run(port=5000)
