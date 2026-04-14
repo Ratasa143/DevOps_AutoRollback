@@ -1,8 +1,65 @@
 body {
-    font-family: Arial;
-    margin: 40px;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f6f8;
 }
-button {
+
+.container {
+    width: 60%;
+    margin: 40px auto;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    margin-bottom: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.card h2 {
+    margin-top: 0;
+}
+
+select {
     padding: 8px;
-    margin: 5px;
+    width: 60%;
+}
+
+button {
+    padding: 8px 14px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+.primary {
+    background: #2c7be5;
+    color: white;
+}
+
+.actions button {
+    margin-right: 10px;
+}
+
+.footer {
+    text-align: center;
+    color: #888;
+    margin-top: 40px;
 }

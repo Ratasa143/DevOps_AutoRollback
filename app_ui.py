@@ -1,8 +1,22 @@
 from flask import Flask, render_template, request, redirect
-import subprocess
-import os
+import subprocess, shutil, os, signal
+from monitor import monitor
+from logger import log
+import threading
 
 app = Flask(__name__)
+app_process = None
+
+def start_app():
+    global app_process
+    app_process = subprocess.Popen(["python", "app/app.py"])
+    log("App started")
+
+def stop_app():
+    global app_process
+    if app_process:
+        app_process.terminate()
+        log("App stopped")
 
 @app.route('/')
 def home():
@@ -11,27 +25,25 @@ def home():
 @app.route('/deploy', methods=['POST'])
 def deploy():
     version = request.form['version']
-    subprocess.run(["python", "deploy.py"], input=version, text=True)
+    stop_app()
+    shutil.copy(f"versions/{version}/app.py", "app/app.py")
+    start_app()
+    log(f"{version} deployed and started")
     return redirect('/')
 
 @app.route('/start_monitor')
 def start_monitor():
-    subprocess.Popen(["python", "monitor.py"])
+    t = threading.Thread(target=monitor)
+    t.start()
     return redirect('/')
 
-@app.route('/rollback')
-def rollback():
-    subprocess.run(["python", "rollback.py"])
-    return redirect('/')
-
-@app.route('/logs', methods=['POST'])
+@app.route('/logs')
 def logs():
-    log = request.form['log']
     content = ""
-    if os.path.exists(f"{log}.log"):
-        with open(f"{log}.log") as f:
+    if os.path.exists("system.log"):
+        with open("system.log") as f:
             content = f.read()
-    return render_template("logviewer.html", content=content)
+    return f"<pre>{content}</pre><a href='/'>Back</a>"
 
 if __name__ == "__main__":
     app.run(port=7000)

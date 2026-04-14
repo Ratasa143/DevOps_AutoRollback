@@ -1,18 +1,15 @@
-import time
-import requests
+import requests, time
+from logger import log
 from rollback import rollback
-import logger
 
-while True:
-    try:
-        r = requests.get("http://127.0.0.1:5000")
-        if r.status_code != 200:
-            logger.write("monitor", "Failure detected")
+def monitor():
+    while True:
+        try:
+            r = requests.get("http://127.0.0.1:5000", timeout=3)
+            if r.status_code != 200:
+                log("Bad response detected")
+                rollback()
+        except:
+            log("App crashed/unreachable")
             rollback()
-            break
-    except:
-        logger.write("monitor", "App not reachable")
-        rollback()
-        break
-
-    time.sleep(3)
+        time.sleep(5)

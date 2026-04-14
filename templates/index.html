@@ -1,31 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>DevOps Dashboard</title>
+    <title>DevOps Auto Rollback Dashboard</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
+
+<div class="container">
     <h1>DevOps Auto Rollback Dashboard</h1>
+    <p class="subtitle">Canteen Menu Server — Deployment & Monitoring</p>
 
-    <form method="POST" action="/deploy">
-        <select name="version">
-            <option value="v1">Deploy v1 (Stable)</option>
-            <option value="v2">Deploy v2 (Buggy)</option>
-        </select>
-        <button type="submit">Deploy</button>
-    </form>
+    <div class="card">
+        <h2>Deploy Application Version</h2>
+        <form method="POST" action="/deploy">
+            <select name="version">
+                <option value="v1">v1 — Stable</option>
+                <option value="v2">v2 — Updated Menu</option>
+                <option value="v3">v3 — Slow Response</option>
+                <option value="v4">v4 — Crash Version</option>
+            </select>
+            <button class="primary">Deploy & Start</button>
+        </form>
+    </div>
 
-    <br>
+    <div class="card actions">
+        <h2>Monitoring & Logs</h2>
+        <a href="/start_monitor"><button>Start Monitor</button></a>
+        <a href="/logs"><button>View System Logs</button></a>
+    </div>
 
-    <a href="/start_monitor"><button>Start Monitor</button></a>
-    <a href="/rollback"><button>Manual Rollback</button></a>
+    <div class="footer">
+        <p>Fundamentals of DevOps Mini Project</p>
+    </div>
+</div>
 
-    <br><br>
-
-    <form method="POST" action="/logs">
-        <button name="log" value="deploy">View Deploy Log</button>
-        <button name="log" value="monitor">View Monitor Log</button>
-        <button name="log" value="rollback">View Rollback Log</button>
-    </form>
 </body>
 </html>
